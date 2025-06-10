@@ -10,7 +10,7 @@ import Image from "next/image"
 
 export default function LGBTQWeddingServices() {
   const [showBookingModal, setShowBookingModal] = useState(false)
-  const [showContactModal, setShowContactModal] = useState<"phone" | "email" | "line" | null>(null)
+  const [showContactModal, setShowContactModal] = useState<"phone" | "email" | "line" | "wechat" | null>(null)
   const [selectedDate, setSelectedDate] = useState<Date>()
   const [customerName, setCustomerName] = useState("")
   const [customerPhone, setCustomerPhone] = useState("")
@@ -124,6 +124,8 @@ export default function LGBTQWeddingServices() {
       callUs: "Call Us",
       emailUs: "Email Us",
       line: "LINE",
+      wechat: "WeChat",
+      wechatQR: "WeChat QR Code",
       location: "Bangkok, Thailand",
 
       // Footer
@@ -254,6 +256,8 @@ export default function LGBTQWeddingServices() {
       callUs: "致电我们",
       emailUs: "电子邮件",
       line: "LINE",
+      wechat: "微信",
+      wechatQR: "微信二维码",
       location: "泰国曼谷",
 
       // Footer
@@ -902,6 +906,15 @@ export default function LGBTQWeddingServices() {
               <Image src="/images/line-logo-new.png" alt="LINE" width={16} height={16} className="mr-2" />
               {t.line}
             </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-green-300 text-green-600 hover:bg-green-50"
+              onClick={() => setShowContactModal("wechat")}
+            >
+              <Image src="/images/wechat-logo.png" alt="WeChat" width={16} height={16} className="mr-2" />
+              {t.wechat}
+            </Button>
           </div>
           <div className="flex items-center justify-center gap-2 text-gray-600">
             <MapPin className="w-4 h-4" />
@@ -977,6 +990,24 @@ export default function LGBTQWeddingServices() {
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
                   />
+                </div>
+
+                <div className="border-t pt-4 mt-4">
+                  <h4 className="text-lg font-semibold mb-3 text-center">Contact via QR Code</h4>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center">
+                      <p className="text-sm font-medium mb-2">WeChat</p>
+                      <div className="w-24 h-24 mx-auto border-2 border-green-500 p-1 rounded-lg">
+                        <img src="/images/wechat-qr.png" alt="WeChat QR" className="w-full h-full object-contain" />
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm font-medium mb-2">LINE</p>
+                      <div className="w-24 h-24 mx-auto border-2 border-green-500 p-1 rounded-lg">
+                        <img src="/images/line-qr-new.png" alt="LINE QR" className="w-full h-full object-contain" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex gap-2">
@@ -1079,6 +1110,28 @@ export default function LGBTQWeddingServices() {
                 <img src="/images/line-qr.png" alt="LINE QR Code" className="w-full h-full object-contain" />
               </div>
               <p className="text-gray-600">{t.scanQR}</p>
+            </div>
+            <Button onClick={() => setShowContactModal(null)} className="w-full mt-4">
+              {t.close}
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {showContactModal === "wechat" && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-2xl font-bold">{t.wechatQR}</h3>
+              <button onClick={() => setShowContactModal(null)} className="text-gray-500 hover:text-gray-700">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="text-center py-4">
+              <div className="w-48 h-48 mx-auto mb-4 border-4 border-green-500 p-2 rounded-lg">
+                <img src="/images/wechat-qr.png" alt="WeChat QR Code" className="w-full h-full object-contain" />
+              </div>
+              <p className="text-gray-600">Scan this QR code with your WeChat app</p>
             </div>
             <Button onClick={() => setShowContactModal(null)} className="w-full mt-4">
               {t.close}
