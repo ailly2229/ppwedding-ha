@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Star, Phone, Mail, MapPin, Globe, X } from "lucide-react"
+import { Star, Mail, MapPin, Globe, X } from "lucide-react"
 import Image from "next/image"
 
 export default function LGBTQWeddingServices() {
   const [showBookingModal, setShowBookingModal] = useState(false)
-  const [showContactModal, setShowContactModal] = useState<"phone" | "email" | "line" | "wechat" | null>(null)
+  const [showContactModal, setShowContactModal] = useState<"email" | "line" | "wechat" | "telegram" | null>(null)
   const [selectedDate, setSelectedDate] = useState<Date>()
   const [customerName, setCustomerName] = useState("")
   const [customerPhone, setCustomerPhone] = useState("")
@@ -127,6 +127,9 @@ export default function LGBTQWeddingServices() {
       wechat: "WeChat",
       wechatQR: "WeChat QR Code",
       location: "Bangkok, Thailand",
+      telegram: "Telegram",
+      telegramQR: "Telegram QR Code",
+      telegramText: "Want to play with other rainbow buddies? Scan the telegram QR code to explore PPCountry.",
 
       // Footer
       celebratingLove: "Celebrating love in all its beautiful forms",
@@ -149,8 +152,7 @@ export default function LGBTQWeddingServices() {
       close: "Close",
 
       // Contact Modals
-      phoneContact: "Phone Number",
-      emailContact: "Email Address",
+      emailContact: "halfimmortal507@gmail.com",
       lineQR: "LINE QR Code",
       scanQR: "Scan this QR code with your LINE app",
     },
@@ -259,6 +261,9 @@ export default function LGBTQWeddingServices() {
       wechat: "微信",
       wechatQR: "微信二维码",
       location: "泰国曼谷",
+      telegram: "Telegram",
+      telegramQR: "Telegram 二维码",
+      telegramText: "想和其他彩虹伙伴一起玩吗？扫描Telegram二维码探索PPCountry。",
 
       // Footer
       celebratingLove: "庆祝各种形式的美丽爱情",
@@ -281,8 +286,7 @@ export default function LGBTQWeddingServices() {
       close: "关闭",
 
       // Contact Modals
-      phoneContact: "电话号码",
-      emailContact: "电子邮箱",
+      emailContact: "halfimmortal507@gmail.com",
       lineQR: "LINE 二维码",
       scanQR: "使用LINE应用扫描此二维码",
     },
@@ -882,14 +886,6 @@ export default function LGBTQWeddingServices() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 hover:from-pink-600 hover:via-purple-600 hover:to-blue-600 text-white"
-              onClick={() => setShowContactModal("phone")}
-            >
-              <Phone className="w-4 h-4 mr-2" />
-              {t.callUs}
-            </Button>
-            <Button
-              size="lg"
               variant="outline"
               className="border-purple-300 text-purple-600 hover:bg-purple-50"
               onClick={() => setShowContactModal("email")}
@@ -914,6 +910,15 @@ export default function LGBTQWeddingServices() {
             >
               <Image src="/images/wechat-logo.png" alt="WeChat" width={16} height={16} className="mr-2" />
               {t.wechat}
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-blue-300 text-blue-600 hover:bg-blue-50"
+              onClick={() => setShowContactModal("telegram")}
+            >
+              <span className="mr-2">✈️</span>
+              {t.telegram}
             </Button>
           </div>
           <div className="flex items-center justify-center gap-2 text-gray-600">
@@ -998,13 +1003,21 @@ export default function LGBTQWeddingServices() {
                     <div className="text-center">
                       <p className="text-sm font-medium mb-2">WeChat</p>
                       <div className="w-24 h-24 mx-auto border-2 border-green-500 p-1 rounded-lg">
-                        <img src="/images/wechat-qr.png" alt="WeChat QR" className="w-full h-full object-contain" />
+                        <img
+                          src="/images/wechat-qr-updated.jpeg"
+                          alt="WeChat QR"
+                          className="w-full h-full object-contain"
+                        />
                       </div>
                     </div>
                     <div className="text-center">
                       <p className="text-sm font-medium mb-2">LINE</p>
                       <div className="w-24 h-24 mx-auto border-2 border-green-500 p-1 rounded-lg">
-                        <img src="/images/line-qr-new.png" alt="LINE QR" className="w-full h-full object-contain" />
+                        <img
+                          src="/images/line-qr-updated.jpeg"
+                          alt="LINE QR"
+                          className="w-full h-full object-contain"
+                        />
                       </div>
                     </div>
                   </div>
@@ -1055,27 +1068,6 @@ export default function LGBTQWeddingServices() {
         </div>
       )}
 
-      {/* Contact Modals */}
-      {showContactModal === "phone" && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-2xl font-bold">{t.phoneContact}</h3>
-              <button onClick={() => setShowContactModal(null)} className="text-gray-500 hover:text-gray-700">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="text-center py-8">
-              <Phone className="w-12 h-12 mx-auto text-blue-500 mb-4" />
-              <p className="text-2xl font-bold text-gray-800">+66 098 574 8899</p>
-            </div>
-            <Button onClick={() => setShowContactModal(null)} className="w-full mt-4">
-              {t.close}
-            </Button>
-          </div>
-        </div>
-      )}
-
       {showContactModal === "email" && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg max-w-md w-full p-6">
@@ -1087,7 +1079,7 @@ export default function LGBTQWeddingServices() {
             </div>
             <div className="text-center py-8">
               <Mail className="w-12 h-12 mx-auto text-purple-500 mb-4" />
-              <p className="text-2xl font-bold text-gray-800">linkus@ppcountry.com</p>
+              <p className="text-2xl font-bold text-gray-800">halfimmortal507@gmail.com</p>
             </div>
             <Button onClick={() => setShowContactModal(null)} className="w-full mt-4">
               {t.close}
@@ -1107,7 +1099,7 @@ export default function LGBTQWeddingServices() {
             </div>
             <div className="text-center py-4">
               <div className="w-48 h-48 mx-auto mb-4 border-4 border-green-500 p-2 rounded-lg">
-                <img src="/images/line-qr.png" alt="LINE QR Code" className="w-full h-full object-contain" />
+                <img src="/images/line-qr-updated.jpeg" alt="LINE QR Code" className="w-full h-full object-contain" />
               </div>
               <p className="text-gray-600">{t.scanQR}</p>
             </div>
@@ -1129,9 +1121,35 @@ export default function LGBTQWeddingServices() {
             </div>
             <div className="text-center py-4">
               <div className="w-48 h-48 mx-auto mb-4 border-4 border-green-500 p-2 rounded-lg">
-                <img src="/images/wechat-qr.png" alt="WeChat QR Code" className="w-full h-full object-contain" />
+                <img
+                  src="/images/wechat-qr-updated.jpeg"
+                  alt="WeChat QR Code"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <p className="text-gray-600">Scan this QR code with your WeChat app</p>
+            </div>
+            <Button onClick={() => setShowContactModal(null)} className="w-full mt-4">
+              {t.close}
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {showContactModal === "telegram" && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-2xl font-bold">{t.telegramQR}</h3>
+              <button onClick={() => setShowContactModal(null)} className="text-gray-500 hover:text-gray-700">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="text-center py-4">
+              <div className="w-48 h-48 mx-auto mb-4 border-4 border-blue-500 p-2 rounded-lg">
+                <img src="/images/telegram-qr.jpeg" alt="Telegram QR Code" className="w-full h-full object-contain" />
+              </div>
+              <p className="text-gray-600">{t.telegramText}</p>
             </div>
             <Button onClick={() => setShowContactModal(null)} className="w-full mt-4">
               {t.close}
